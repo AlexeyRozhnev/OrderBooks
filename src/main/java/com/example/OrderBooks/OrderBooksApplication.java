@@ -1,0 +1,13 @@
+package com.example.OrderBooks;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class OrderBooksApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(OrderBooksApplication.class, args);
+	}
+
+}
