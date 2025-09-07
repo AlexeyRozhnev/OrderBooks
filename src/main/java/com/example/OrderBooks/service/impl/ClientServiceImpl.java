@@ -1,13 +1,14 @@
-package com.example.OrderBooks.service.Impl;
+package com.example.OrderBooks.service.impl;
 
 import com.example.OrderBooks.entity.Client;
-import com.example.OrderBooks.repository.ClientRepository
+import com.example.OrderBooks.repository.ClientRepository;
+import com.example.OrderBooks.service.ClientService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.time.LocalDate;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -18,15 +19,14 @@ public class ClientServiceImpl implements ClientService {
     private final ClientRepository clientRepository;
 
     @Override
-    public Iterable<Client> findAllClient() {
-            return this.clientRepository.findAll();
-        }
+    public Iterable<Client> findAllClients() {
+        return this.clientRepository.findAll();
     }
 
     @Override
     @Transactional
-    public Client createClient(Client client) {
-        return this.clientRepository.save(new Product(client));
+    public Client createClient(String fullName, LocalDate birthDate) {
+        return this.clientRepository.save(new Client(null, fullName, birthDate));
     }
 
     @Override
@@ -36,12 +36,11 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     @Transactional
-    public void updateClient(Client client) {
+    public void updateClient(Long id, String fullName, LocalDate birthDate) {
         this.clientRepository.findById(id)
-                .ifPresentOrElse(newClient -> {
-					newClient.setfullName(client.getfullName);
-                    newClient.setbirthDate(client.getbirthDate);
-                    newClient.setAuthor(author);
+                .ifPresentOrElse(client -> {
+					client.setFullName(fullName);
+                    client.setBirthDate(birthDate);
                 }, () -> {
                     throw new NoSuchElementException();
                 });

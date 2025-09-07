@@ -1,7 +1,8 @@
-package com.example.OrderBooks.service.Impl;
+package com.example.OrderBooks.service.impl;
 
 import com.example.OrderBooks.entity.Book;
-import com.example.OrderBooks.repository.BookRepository
+import com.example.OrderBooks.repository.BookRepository;
+import com.example.OrderBooks.service.BookService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,14 +20,13 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Iterable<Book> findAllBooks() {
-            return this.bookRepository.findAll();
-        }
+        return this.bookRepository.findAll();
     }
-
+    
     @Override
     @Transactional
-    public Book createBook(Book book) {
-        return this.bookRepository.save(new Book(book));
+    public Book createBook(String isbn, String title, String author) {
+        return this.bookRepository.save(new Book(null, isbn, title, author));
     }
 
     @Override
@@ -36,12 +36,12 @@ public class BookServiceImpl implements BookService {
 
     @Override
     @Transactional
-    public void updateBook(Long id, Book book) {
+    public void updateBook(Long id, String isbn, String title, String author) {
         this.bookRepository.findById(id)
-                .ifPresentOrElse(newBook -> {
-					newBook.setIsbn(book.getIsbn);
-                    newBook.setTitle(book.getTitle);
-                    newBook.setAuthor(book.getAuthor);
+                .ifPresentOrElse(updatedBook -> {
+                    updatedBook.setIsbn(isbn);
+                    updatedBook.setTitle(title);
+                    updatedBook.setAuthor(author);
                 }, () -> {
                     throw new NoSuchElementException();
                 });

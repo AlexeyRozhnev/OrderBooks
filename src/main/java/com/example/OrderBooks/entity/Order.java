@@ -3,6 +3,7 @@ package com.example.OrderBooks.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Data

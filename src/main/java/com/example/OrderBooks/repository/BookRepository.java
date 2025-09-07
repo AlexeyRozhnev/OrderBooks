@@ -1,9 +1,9 @@
 package com.example.OrderBooks.repository;
 
-package com.example.OrderBooks.entity.Client;
+import com.example.OrderBooks.entity.Book;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface BookRepository extends CrudRepository<Client, Long> {
+public interface BookRepository extends CrudRepository<Book, Long> {
 
 }

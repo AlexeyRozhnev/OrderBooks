@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 public interface ClientService {
 
-    Iterable<Client> findAllClients(String filter);
+    Iterable<Client> findAllClients();
 
     Client createClient(String fullName, LocalDate birthDate);
 
